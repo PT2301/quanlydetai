@@ -26,20 +26,20 @@ public class Role {
     @Column(name="name",nullable = false)
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
-    @Column(name="create_date",nullable = false)
+    @Column(name="create_date")
     @CreatedDate
     @JsonFormat(pattern = "dd/mm/yyyy")
     private Date createDate;
 
-    @Column(name="edit_date",nullable = false)
+    @Column(name="edit_date")
     @LastModifiedDate
     @JsonFormat(pattern = "dd/mm/yyyy")
     private Date editDate;
 
-    @Column(name="create_by",nullable = false)
+    @Column(name="create_by")
     @CreatedBy
     private String createBy;
-    @Column(name="edit_by",nullable = false)
+    @Column(name="edit_by")
     @LastModifiedBy
     private String editBy;
 

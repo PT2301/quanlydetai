@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class UserDetailsimpl implements UserDetails {
     private int id;
     private String email;
+    private String name;
     @JsonIgnore
     private String password;
     private boolean status;
@@ -34,6 +35,7 @@ public class UserDetailsimpl implements UserDetails {
         return new UserDetailsimpl(
                 user.getId(),
                 user.getEmail(),
+                user.getName(),
                 user.getPass(),
                 user.isStatus(),
                 listAuthorities);
@@ -46,7 +48,7 @@ public class UserDetailsimpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return null;
     }
 
     @Override
@@ -68,4 +70,5 @@ public class UserDetailsimpl implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

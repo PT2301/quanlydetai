@@ -45,10 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/logout").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/organ/nopaging").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/user/existByUsername/*").permitAll()
                 .anyRequest().authenticated();
 
+        http.logout().permitAll();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

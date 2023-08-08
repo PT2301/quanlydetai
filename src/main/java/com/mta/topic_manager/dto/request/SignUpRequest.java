@@ -33,7 +33,7 @@ public class SignUpRequest {
     private Date birth;
     @NotNull
     private String gender;
-    private DegreeDto degree;
+    private Set<DegreeDto> degree;
     @NotEmpty
     private Set<String> roles;
 }

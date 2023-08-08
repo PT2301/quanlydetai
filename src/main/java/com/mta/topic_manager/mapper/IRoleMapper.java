@@ -5,8 +5,8 @@ import com.mta.topic_manager.entity.Role;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-@Component
-@Mapper
+
+@Mapper(componentModel = "spring")
 public interface IRoleMapper {
     Role roleDtoToEntity(RoleDto roleDto);
     RoleDto roleEntityToDto(Role role);

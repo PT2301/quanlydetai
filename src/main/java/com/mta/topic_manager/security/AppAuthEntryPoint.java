@@ -17,7 +17,7 @@ public class AppAuthEntryPoint implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(AppAuthEntryPoint.class);
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         logger.error("unauthorized error: {}",authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Error: Unauthorized"); //401
     }

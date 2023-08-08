@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -17,15 +18,18 @@ public class JwtTokenProvider {
     @Value("${ra.jwt.expiration}")
     private int JWT_EXPIRATION;
     // tao jwt tu thong tin cua user
-    public String generateToken(Authentication authentication){
+    public String[] generateToken(Authentication authentication){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date now=new Date();
         Date dateExpired= new Date(now.getTime()+JWT_EXPIRATION);
         UserDetailsimpl userDetailsimpl= (UserDetailsimpl)authentication.getPrincipal();
         //tao chuoi jwt tu email
-        return Jwts.builder().setSubject(userDetailsimpl.getEmail())
+        return new String[]{Jwts.builder().setSubject(userDetailsimpl.getEmail())
                 .setIssuedAt(now)//thoi diem taoj jwt
                 .setExpiration(dateExpired)//thoi gian het han
-                .signWith(SignatureAlgorithm.HS512,JWT_SECRET).compact();
+                .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
+                .compact()
+        ,sdf.format(dateExpired)}; //expired time;
     }
     //Lay thong tin user tu jwt
     public String getEmailFromJwt(String token){
