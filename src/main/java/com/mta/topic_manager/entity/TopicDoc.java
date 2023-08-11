@@ -2,15 +2,16 @@ package com.mta.topic_manager.entity;
 
 import javax.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name="topic_document")
-public class TopicDocument extends Base{
+public class TopicDoc extends Base{
     @Column(name = "decription",nullable = false)
     private String decription;
     @Column(name = "newName")
@@ -19,7 +20,7 @@ public class TopicDocument extends Base{
     private String fileSize;
     @ManyToOne
     @JoinColumn(name="document_id")
-    private DocumentType documentType;
+    private DocType docType;
     @ManyToOne
     @JoinColumn(name="topic_id")
     private Topic topic;

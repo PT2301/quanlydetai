@@ -1,6 +1,7 @@
 package com.mta.topic_manager.entity;
 import javax.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -8,12 +9,14 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name="document_type")
-public class DocumentType extends Base{
+public class DocType extends Base{
     @Column(name = "decription",nullable = false)
     private String decription;
+    @Column(name = "tail",nullable = false,unique = true)
+    private String tail;
     @OneToMany(mappedBy ="documentType")
-    private List<TopicDocument> topicDocuments;
+    private List<TopicDoc> topicDocs;
 }

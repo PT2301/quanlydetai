@@ -22,4 +22,6 @@ public class Organ extends Base{
     private String email;
     @OneToMany(mappedBy = "organ")
     private List<User> users;
+    @OneToMany(mappedBy = "organ")
+    private List<Topic> topics;
 }

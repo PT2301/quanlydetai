@@ -9,10 +9,15 @@ import com.mta.topic_manager.mapper.IUserMapper;
 import com.mta.topic_manager.repository.IUserRepository;
 import com.mta.topic_manager.security.userscurity.UserDetailsimpl;
 import com.mta.topic_manager.service.IUserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
@@ -88,6 +95,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public UserDto getCurrentUserDto() {
+        return userMapper.userEntityToDto(getCurrentUser());
+    }
+
+    @Override
     public UserDto updateInfor(Integer id, UserDto userRequest) throws ChangeSetPersister.NotFoundException {
         User userEntity= userRepository.findById(id).orElseThrow(()-> new ChangeSetPersister.NotFoundException());
         userEntity.setName(userEntity.getName());
@@ -121,7 +133,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Page<UserDto> getAll(int page, int size, String organ, String username) {
+    public Page<UserDto> getUserByOrgan(int page, int size, String organ, String role) {
+        Pageable paging = PageRequest.of(page,size, Sort.by("create_date").descending());
+//        Page<User> listUser =userRepository.getUserByOrgan()
         return null;
     }
 }

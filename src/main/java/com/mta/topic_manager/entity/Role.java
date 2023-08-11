@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mta.topic_manager.model.RoleEnum;
 import javax.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name="role")
 public class Role {
