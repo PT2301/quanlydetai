@@ -26,5 +26,7 @@ public interface IUserService {
     void disable();
     void enable();
     void disables(Integer id);
+    void setAdmin(Integer id);
+    void removeAdmin(Integer id);
     Page<UserDto> getUserByOrgan(int page, int size, String organ, String role);
 }

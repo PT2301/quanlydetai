@@ -5,9 +5,10 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum TopicStatusEnum {
-    CHUA_DUYET("Chưa duyệt"),
-    DA_PHE_DUYET("Đã phê duyệt"),
-    DANG_THUC_HIEN("Đang thực hiện"),
-    DA_NGHIEM_THU("Đã nghiệm thu");
+    CHUA_PHE_DUYET("CPD"),
+    DA_PHE_DUYET("DPD"),
+    DANG_THUC_HIEN("DTH"),
+    DA_HOAN_THANH("DHT"),
+    DA_NGHIEM_THU("DNT");
     private final String value;
 }

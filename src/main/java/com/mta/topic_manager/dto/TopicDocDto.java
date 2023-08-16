@@ -1,17 +1,26 @@
 package com.mta.topic_manager.dto;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
-
-public class TopicDocDto extends BaseDto<TopicDocDto> {
+@AllArgsConstructor
+@NoArgsConstructor
+public class TopicDocDto{
+    private String code;
+    private String name;
+    private String serverName;
     private String decription;
-    private String newName;
     private String fileSize;
-    private DocTypeDto documentType;
+
+    private DocTypeDto docType;
     private TopicDto topic;
+
+    private String createBy;
+    private Date createDate;
+    private String editBy;
+    private Date editDate;
 }
 

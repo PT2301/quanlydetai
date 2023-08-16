@@ -8,7 +8,9 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TopicDto extends BaseDto<TopicDto>{
+public class TopicDto {
+    public String id;
+    public String name;
     private Date startDate;
     private Date endDate;
     private Long expense;
@@ -18,6 +20,11 @@ public class TopicDto extends BaseDto<TopicDto>{
     private TopicResultDto topicResult;
     private TopicStatusDto topicStatus;
     private TopicFieldDto topicField;
+
+    private String createBy;
+    private Date createDate;
+    private String editBy;
+    private Date editDate;
 
 
 }

@@ -6,12 +6,11 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
-
+@SuperBuilder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 @Entity
 @Table(name="topic_field")
 public class TopicField extends  Base {

@@ -41,6 +41,7 @@ public abstract class Base {
     @Column(name="create_by")
     @CreatedBy
     private String createBy;
+
     @Column(name="edit_by")
     @LastModifiedBy
     private String editBy;

@@ -17,6 +17,6 @@ public class DocType extends Base{
     private String decription;
     @Column(name = "tail",nullable = false,unique = true)
     private String tail;
-    @OneToMany(mappedBy ="documentType")
+    @OneToMany(mappedBy ="docType")
     private List<TopicDoc> topicDocs;
 }

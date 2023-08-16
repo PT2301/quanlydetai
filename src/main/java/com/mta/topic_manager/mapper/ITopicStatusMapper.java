@@ -4,7 +4,6 @@ import com.mta.topic_manager.dto.TopicStatusDto;
 import com.mta.topic_manager.entity.TopicStatus;
 import org.mapstruct.Mapper;
 
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 @Mapper(componentModel = "spring")

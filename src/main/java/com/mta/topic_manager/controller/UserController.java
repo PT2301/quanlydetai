@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Set;
 
@@ -59,10 +60,23 @@ public class UserController {
         ids.getStrings().forEach(id->userService.disables(id));
         return ResponseModel.responseBuilder(MessageEnum.REQUEST_SUCCESS.getValue(),HttpStatus.OK,null,true );
     }
-//    public ResponseEntity<?> getUserByOrgan(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size
-//                                        ,@RequestParam(name="organ",required = false) String organ
-//                                        ,@RequestParam(name="role",required = false)String role){
-//        return ResponseModel.responseBuilder(MessageEnum.REQUEST_SUCCESS.getValue(), HttpStatus.OK, userService.)
-//    }
+    @PatchMapping("/setAdmin/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public  ResponseEntity<?> setAdmin(@PathVariable Integer id){
+        userService.setAdmin(id);
+        return ResponseModel.responseBuilder(MessageEnum.REQUEST_SUCCESS.getValue(),HttpStatus.OK,null,true );
+    }
+    @PatchMapping("/removeAdmin/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public  ResponseEntity<?> removeAdmin(@PathVariable Integer id){
+        userService.removeAdmin(id);
+        return ResponseModel.responseBuilder(MessageEnum.REQUEST_SUCCESS.getValue(),HttpStatus.OK,null,true );
+    }
+    @GetMapping(value = "/getByOrgan")
+    public ResponseEntity<?> getUserByOrgan(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "5") int size
+                                        ,@RequestParam(name="organ",defaultValue = "%") String organ
+                                        ,@RequestParam(name="role",defaultValue = "%")String role){
+        return ResponseModel.responseBuilder(MessageEnum.REQUEST_SUCCESS.getValue(), HttpStatus.OK, userService.getUserByOrgan(page, size, organ, role),true);
+    }
 
 }

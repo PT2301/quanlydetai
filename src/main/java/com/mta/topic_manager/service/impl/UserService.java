@@ -2,12 +2,16 @@ package com.mta.topic_manager.service.impl;
 
 
 import com.mta.topic_manager.dto.UserDto;
+import com.mta.topic_manager.entity.Role;
 import com.mta.topic_manager.entity.User;
 import com.mta.topic_manager.mapper.IDegreeMapper;
 import com.mta.topic_manager.mapper.IOrganMapper;
 import com.mta.topic_manager.mapper.IUserMapper;
+import com.mta.topic_manager.model.RoleEnum;
+import com.mta.topic_manager.repository.IRoleRepository;
 import com.mta.topic_manager.repository.IUserRepository;
 import com.mta.topic_manager.security.userscurity.UserDetailsimpl;
+import com.mta.topic_manager.service.IRoleService;
 import com.mta.topic_manager.service.IUserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -41,6 +46,10 @@ public class UserService implements IUserService {
     private IDegreeMapper degreeMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private IRoleService roleService;
+    @Autowired
+    private IRoleRepository roleRepository;
     @Override
     public UserDto findByEmail(String email) {
         return userMapper.userEntityToDto(userRepository.findByEmail(email).get());
@@ -66,7 +75,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto findById(int id) {
-        return userMapper.userEntityToDto(userRepository.findById(id).orElseThrow());
+        return userMapper.userEntityToDto(userRepository.findById(id).orElseThrow(()->new RuntimeException("User not exists")));
     }
 
     @Override
@@ -133,9 +142,27 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void setAdmin(Integer id) {
+        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("User not exists"));
+        Set<Role> abc =user.getRoles();
+        abc.add(roleRepository.findByName(RoleEnum.ADMIN).orElseThrow());
+        user.setRoles(abc);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeAdmin(Integer id) {
+        User user=userRepository.findById(id).orElseThrow(()->new RuntimeException("User not exists"));
+        Set<Role> abc =user.getRoles();
+        abc.remove(roleRepository.findByName(RoleEnum.ADMIN).orElseThrow());
+        user.setRoles(abc);
+        userRepository.save(user);
+    }
+
+    @Override
     public Page<UserDto> getUserByOrgan(int page, int size, String organ, String role) {
         Pageable paging = PageRequest.of(page,size, Sort.by("create_date").descending());
-//        Page<User> listUser =userRepository.getUserByOrgan()
-        return null;
+        Page<User> listUser =userRepository.getUserByOrgan(organ,role,paging);
+        return listUser.map(userMapper::userEntityToDto);
     }
 }
